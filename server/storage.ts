@@ -248,7 +248,6 @@ export class DatabaseStorage implements IStorage {
       ))
       .orderBy(schema.trades.timestamp);
 
-    // Get portfolio snapshots
     const snapshots = await db
       .select()
       .from(schema.portfolioHistory)
@@ -273,7 +272,6 @@ export class DatabaseStorage implements IStorage {
       return [];
     }
 
-    // Combine trades and snapshots to create a timeline
     const timeline = [...trades.map(trade => ({
       timestamp: trade.timestamp,
       value: parseFloat(trade.amount.toString()) * parseFloat(trade.price.toString())
